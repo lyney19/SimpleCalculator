@@ -24,15 +24,20 @@ git clone https://github.com/your-username/calculator.git
 2. Run `Main.java`
 
 ## 📁 Project Structure
-Main.java // UI + Logic \
-Operation.java // Enum of operations
+```
+SimpleCalculator/
+├─ Main.java            # UI
+├─ CalculatorController # Controller
+├─ Calculator           # Model
+└─ Operation.java       # Model
+```
 
 ## 🧠 What I Learned
 - JavaFX basics (Scene, Stage, Layouts, Controls)
 - Event handling basics
+- Basics of MVC architecture
 
 ## 🔮 Future Improvements
 - Add support for keyboard
-- Separation of UI and logic
-- Rework evaluation logic
+- Add expression parser
 - Add error handling
