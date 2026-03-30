@@ -18,7 +18,7 @@ The project was created to study UI and application architecture.
 ## ⚙️ Installation & Run
 1. Clone repository:
 ```bash
-git clone https://github.com/your-username/calculator.git
+git clone https://github.com/lyney19/SimpleCalculator.git
 ```
 1. Open in IDE (IntelliJ IDEA, Eclipse)
 2. Run `Main.java`
@@ -35,9 +35,8 @@ SimpleCalculator/
 ## 🧠 What I Learned
 - JavaFX basics (Scene, Stage, Layouts, Controls)
 - Event handling basics
-- Basics of MVC architecture
+- Application architecture basics.
 
 ## 🔮 Future Improvements
-- Add support for keyboard
 - Add expression parser
-- Add error handling
+- Improve architecture

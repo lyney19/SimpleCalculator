@@ -14,6 +14,10 @@ public enum Operation {
     DIVIDE("/") {
         @Override
         public double operate(double a, double b) {
+            if (b == 0.0) {
+                throw new ArithmeticException();
+            }
+
             return a / b;
         }
     },
@@ -31,6 +35,11 @@ public enum Operation {
 
     public String getSign() {
         return sign;
+    }
+
+    @Override
+    public String toString() {
+        return getSign();
     }
 
     public abstract double operate(double a, double b);

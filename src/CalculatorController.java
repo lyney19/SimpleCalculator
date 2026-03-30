@@ -1,11 +1,18 @@
 import java.text.DecimalFormat;
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Map;
 
 public class CalculatorController {
     private final static int HISTORY_CAPACITY = 20;
-    private final static DecimalFormat DF = new DecimalFormat("#.######");
+    private static final Map<String, Operation> OPERATIONS = Map.of(
+            "+", Operation.ADD,
+            "-", Operation.SUBTRACT,
+            "*", Operation.MULTIPLY,
+            "/", Operation.DIVIDE
+    );
 
+    private final DecimalFormat df = new DecimalFormat("#.######");
     private final Calculator calculator = new Calculator();
     private final StringBuilder userInput = new StringBuilder();
     private final Deque<String> executionHistory = new ArrayDeque<>();
@@ -57,11 +64,13 @@ public class CalculatorController {
         if (totalValue == null) {
             totalValue = parseInput();
         } else {
-            totalValue = calculator.evaluate(
-                    currentOperation,
-                    totalValue,
-                    parseInput()
-            );
+            try {
+                totalValue = calculator.evaluate(currentOperation, totalValue, parseInput());
+            } catch (ArithmeticException e) {
+                onAllClear();
+                userInput.append("Error. Can't divide by 0.");
+                return;
+            }
         }
 
         userInput.setLength(0);
@@ -91,10 +100,28 @@ public class CalculatorController {
         }
     }
 
+    public void onKeyboard(String text) {
+        System.out.println(text);
+        if (text.length() == 1 && Character.isDigit(text.charAt(0))) {
+            onInput(text);
+            return;
+        }
+
+        if (OPERATIONS.containsKey(text)) {
+            onOperation(OPERATIONS.get(text));
+            return;
+        }
+
+        if (text.equals("=")) {
+            onEquals();
+            return;
+        }
+    }
+
     public String getResult() {
 
         if (isShowingResult && totalValue != null) {
-            return DF.format(totalValue);
+            return df.format(totalValue);
         }
 
         return userInput.toString();

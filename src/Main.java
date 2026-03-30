@@ -1,6 +1,8 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -158,6 +160,19 @@ public class Main extends Application {
         mainPane.setCenter(buttonsPane);
 
         final var scene = new Scene(mainPane);
+
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+            if (e.getCode() == KeyCode.ENTER) {
+                controller.onEquals();
+                e.consume();
+                updateUI();
+            }
+        });
+
+        scene.setOnKeyTyped(e -> {
+            controller.onKeyboard(e.getCharacter());
+            updateUI();
+        });
 
         stage.setScene(scene);
         stage.setTitle("Calculator");
